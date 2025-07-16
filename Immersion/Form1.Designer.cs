@@ -30,13 +30,15 @@
         {
             menuStrip1 = new MenuStrip();
             dateiToolStripMenuItem = new ToolStripMenuItem();
-            splitContainer1 = new SplitContainer();
             öffnenToolStripMenuItem = new ToolStripMenuItem();
             speichernToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripSeparator();
             schließenAltF4ToolStripMenuItem = new ToolStripMenuItem();
+            splitContainer1 = new SplitContainer();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
             splitContainer1.SuspendLayout();
             SuspendLayout();
             // 
@@ -56,15 +58,6 @@
             dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             dateiToolStripMenuItem.Size = new Size(59, 24);
             dateiToolStripMenuItem.Text = "&Datei";
-            // 
-            // splitContainer1
-            // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 28);
-            splitContainer1.Name = "splitContainer1";
-            splitContainer1.Size = new Size(800, 422);
-            splitContainer1.SplitterDistance = 266;
-            splitContainer1.TabIndex = 1;
             // 
             // öffnenToolStripMenuItem
             // 
@@ -90,6 +83,28 @@
             schließenAltF4ToolStripMenuItem.Text = "Schließen (Alt+F4)";
             schließenAltF4ToolStripMenuItem.Click += schließenAltF4ToolStripMenuItem_Click;
             // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Location = new Point(0, 28);
+            splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(flowLayoutPanel1);
+            splitContainer1.Size = new Size(800, 422);
+            splitContainer1.SplitterDistance = 266;
+            splitContainer1.TabIndex = 1;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(266, 422);
+            flowLayoutPanel1.TabIndex = 0;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -102,6 +117,7 @@
             Text = "Form1";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             ResumeLayout(false);
@@ -117,5 +133,6 @@
         private ToolStripMenuItem speichernToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem1;
         private ToolStripMenuItem schließenAltF4ToolStripMenuItem;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
