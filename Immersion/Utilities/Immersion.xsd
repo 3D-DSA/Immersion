@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Immersion"
+    targetNamespace="http://tempuri.org/Immersion.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/Immersion.xsd"
+    xmlns:mstns="http://tempuri.org/Immersion.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:element name="SzenenSammlung">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Szene" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Bilder" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Datei" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:attribute name="name" type="xs:string" use="required"/>
+												<xs:attribute name="pfad" type="xs:string" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Videos" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Datei" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:attribute name="name" type="xs:string" use="required"/>
+												<xs:attribute name="pfad" type="xs:string" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Toene" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Datei" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:attribute name="name" type="xs:string" use="required"/>
+												<xs:attribute name="pfad" type="xs:string" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="name" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
