@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Immersion", "Immersion\Immersion.csproj", "{B721E06E-2F47-40F1-B5B4-F271941DBF86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B721E06E-2F47-40F1-B5B4-F271941DBF86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B721E06E-2F47-40F1-B5B4-F271941DBF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B721E06E-2F47-40F1-B5B4-F271941DBF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B721E06E-2F47-40F1-B5B4-F271941DBF86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6080F2FF-3D63-45D3-84C6-CDDFCAEAFF9C}
+	EndGlobalSection
+EndGlobal
