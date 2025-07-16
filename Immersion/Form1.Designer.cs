@@ -31,6 +31,10 @@
             menuStrip1 = new MenuStrip();
             dateiToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+            öffnenToolStripMenuItem = new ToolStripMenuItem();
+            speichernToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            schließenAltF4ToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.SuspendLayout();
@@ -48,6 +52,7 @@
             // 
             // dateiToolStripMenuItem
             // 
+            dateiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { öffnenToolStripMenuItem, speichernToolStripMenuItem, toolStripMenuItem1, schließenAltF4ToolStripMenuItem });
             dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             dateiToolStripMenuItem.Size = new Size(59, 24);
             dateiToolStripMenuItem.Text = "&Datei";
@@ -60,6 +65,30 @@
             splitContainer1.Size = new Size(800, 422);
             splitContainer1.SplitterDistance = 266;
             splitContainer1.TabIndex = 1;
+            // 
+            // öffnenToolStripMenuItem
+            // 
+            öffnenToolStripMenuItem.Name = "öffnenToolStripMenuItem";
+            öffnenToolStripMenuItem.Size = new Size(224, 26);
+            öffnenToolStripMenuItem.Text = "&Öffnen";
+            // 
+            // speichernToolStripMenuItem
+            // 
+            speichernToolStripMenuItem.Name = "speichernToolStripMenuItem";
+            speichernToolStripMenuItem.Size = new Size(224, 26);
+            speichernToolStripMenuItem.Text = "&Speichern";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(221, 6);
+            // 
+            // schließenAltF4ToolStripMenuItem
+            // 
+            schließenAltF4ToolStripMenuItem.Name = "schließenAltF4ToolStripMenuItem";
+            schließenAltF4ToolStripMenuItem.Size = new Size(224, 26);
+            schließenAltF4ToolStripMenuItem.Text = "Schließen (Alt+F4)";
+            schließenAltF4ToolStripMenuItem.Click += schließenAltF4ToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -84,5 +113,9 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem dateiToolStripMenuItem;
         private SplitContainer splitContainer1;
+        private ToolStripMenuItem öffnenToolStripMenuItem;
+        private ToolStripMenuItem speichernToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem schließenAltF4ToolStripMenuItem;
     }
 }

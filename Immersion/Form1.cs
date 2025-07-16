@@ -6,5 +6,10 @@ namespace Immersion
         {
             InitializeComponent();
         }
+
+        private void schlieﬂenAltF4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
