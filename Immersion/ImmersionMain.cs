@@ -1,6 +1,6 @@
 namespace Immersion
 {
-    internal static class Program
+    internal static class ImmersionMain
     {
         /// <summary>
         ///  The main entry point for the application.
