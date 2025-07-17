@@ -48,7 +48,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { dateiToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 28);
+            menuStrip1.Size = new Size(1679, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -92,8 +92,8 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.Controls.Add(flowLayoutPanel1);
-            splitContainer1.Size = new Size(800, 422);
-            splitContainer1.SplitterDistance = 266;
+            splitContainer1.Size = new Size(1679, 925);
+            splitContainer1.SplitterDistance = 558;
             splitContainer1.TabIndex = 1;
             // 
             // flowLayoutPanel1
@@ -102,14 +102,14 @@
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(266, 422);
+            flowLayoutPanel1.Size = new Size(558, 925);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1679, 953);
             Controls.Add(splitContainer1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
