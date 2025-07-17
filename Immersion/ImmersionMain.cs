@@ -10,11 +10,15 @@ namespace Immersion
         [STAThread]
         static void Main()
         {
-            public List<Scene> sceneList = new List<Scene>();
+            var sceneList = new List<Scene>();
+            var screenList = new List<Screen>();
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+
+            screenList = Classes.Infrastructure.GetScreenList();
+
         }
     }
 }
