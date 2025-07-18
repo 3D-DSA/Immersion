@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Immersion.Classes
 {
-    internal class Picture:Media
+    internal class Picture : Media
     {
+        public Picture(string? name, string? path, List<string> list)
+        {
+            this.Name = name;
+            this.Path = path;
+            Tags = new List<string> ();
+            this.Tags = list;
+        }
+
+        Picture() { }
     }
 }

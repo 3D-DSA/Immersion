@@ -62,24 +62,24 @@
             // öffnenToolStripMenuItem
             // 
             öffnenToolStripMenuItem.Name = "öffnenToolStripMenuItem";
-            öffnenToolStripMenuItem.Size = new Size(224, 26);
+            öffnenToolStripMenuItem.Size = new Size(213, 26);
             öffnenToolStripMenuItem.Text = "&Öffnen";
             // 
             // speichernToolStripMenuItem
             // 
             speichernToolStripMenuItem.Name = "speichernToolStripMenuItem";
-            speichernToolStripMenuItem.Size = new Size(224, 26);
+            speichernToolStripMenuItem.Size = new Size(213, 26);
             speichernToolStripMenuItem.Text = "&Speichern";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(221, 6);
+            toolStripMenuItem1.Size = new Size(210, 6);
             // 
             // schließenAltF4ToolStripMenuItem
             // 
             schließenAltF4ToolStripMenuItem.Name = "schließenAltF4ToolStripMenuItem";
-            schließenAltF4ToolStripMenuItem.Size = new Size(224, 26);
+            schließenAltF4ToolStripMenuItem.Size = new Size(213, 26);
             schließenAltF4ToolStripMenuItem.Text = "Schließen (Alt+F4)";
             schließenAltF4ToolStripMenuItem.Click += schließenAltF4ToolStripMenuItem_Click;
             // 
@@ -98,12 +98,18 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.AllowDrop = true;
+            flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(558, 925);
             flowLayoutPanel1.TabIndex = 0;
+            flowLayoutPanel1.WrapContents = false;
+            flowLayoutPanel1.DragDrop += flowLayoutPanel1_DragDrop;
+            flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
+            flowLayoutPanel1.Resize += flowLayoutPanel1_Resize;
             // 
             // Form1
             // 
