@@ -1,34 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<SzenenSammlung>
-	<Szene name="Erste Szene">
-		<Bilder>
-			<Datei name="foto1.jpg" pfad="C:/Projekte/Medien/foto1.jpg"/>
-			<Datei name="landschaft.png" pfad="C:/Projekte/Medien/landschaft.png"/>
-			<Datei name="gruppe.jpeg" pfad="C:/Projekte/Medien/gruppe.jpeg"/>
-		</Bilder>
-		<Videos>
-			<Datei name="intro.mp4" pfad="C:/Projekte/Medien/intro.mp4"/>
-		</Videos>
-		<Toene>
-			<Datei name="begruesung.mp3" pfad="C:/Projekte/Medien/begruesung.mp3"/>
-			<Datei name="hintergrund.wav" pfad="C:/Projekte/Medien/hintergrund.wav"/>
-		</Toene>
-	</Szene>
-	<Szene name="Zweite Szene">
-		<Bilder>
-			<Datei name="portrait.jpg" pfad="D:/Bilder/portrait.jpg"/>
-			<Datei name="haus.png" pfad="D:/Bilder/haus.png"/>
-			<Datei name="tiere.jpg" pfad="D:/Bilder/tiere.jpg"/>
-			<Datei name="baum.webp" pfad="D:/Bilder/baum.webp"/>
-		</Bilder>
-		<Videos>
-			<Datei name="szene2.mp4" pfad="D:/Videos/szene2.mp4"/>
-			<Datei name="erinnerung.mov" pfad="D:/Videos/erinnerung.mov"/>
-		</Videos>
-		<Toene>
-			<Datei name="wind.ogg" pfad="D:/Audio/wind.ogg"/>
-			<Datei name="schlusslied.mp3" pfad="D:/Audio/schlusslied.mp3"/>
-			<Datei name="vogelgezwitscher.wav" pfad="D:/Audio/vogelgezwitscher.wav"/>
-		</Toene>
-	</Szene>
-</SzenenSammlung>
+<ImmersionProject>
+	<Scenecollection>
+		<Scene name="Erste Szene" id="1" bgimage="">
+			<Images>
+				<Image name="foto1.jpg" path="C:/Projekte/Medien/foto1.jpg"/>
+				<Image name="landschaft.png" path="C:/Projekte/Medien/landschaft.png"/>
+				<Image name="gruppe.jpeg" path="C:/Projekte/Medien/gruppe.jpeg"/>
+			</Images>
+			<Videos>
+				<Video name="intro.mp4" path="C:/Projekte/Medien/intro.mp4"/>
+			</Videos>
+			<Sounds>
+				<Sound name="begruesung.mp3" path="C:/Projekte/Medien/begruesung.mp3"/>
+				<Sound name="hintergrund.wav" path="C:/Projekte/Medien/hintergrund.wav"/>
+			</Sounds>
+		</Scene>
+		<Scene name="Zweite Szene" id="2" bgimage="">
+			<Images>
+				<Image name="portrait.jpg" path="D:/Bilder/portrait.jpg"/>
+				<Image name="haus.png" path="D:/Bilder/haus.png"/>
+				<Image name="tiere.jpg" path="D:/Bilder/tiere.jpg"/>
+				<Image name="baum.webp" path="D:/Bilder/baum.webp"/>
+			</Images>
+			<Videos>
+				<Video name="szene2.mp4" path="D:/Videos/szene2.mp4"/>
+				<Video name="erinnerung.mov" path="D:/Videos/erinnerung.mov"/>
+			</Videos>
+			<Sounds>
+				<Sound name="wind.ogg" path="D:/Audio/wind.ogg"/>
+				<Sound name="schlusslied.mp3" path="D:/Audio/schlusslied.mp3"/>
+				<Sound name="vogelgezwitscher.wav" path="D:/Audio/vogelgezwitscher.wav"/>
+			</Sounds>
+		</Scene>
+	</Scenecollection>
+</ImmersionProject>
