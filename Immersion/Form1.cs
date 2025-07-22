@@ -1,4 +1,5 @@
 using Immersion.Classes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Immersion
 {
@@ -7,10 +8,16 @@ namespace Immersion
         public Form1()
         {
             InitializeComponent();
-            flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
-            flowLayoutPanel1.DragDrop += flowLayoutPanel1_DragDrop;
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanelScenes.DragEnter += flowLayoutPanel1_DragEnter;
+            flowLayoutPanelScenes.DragDrop += flowLayoutPanel1_DragDrop;
+            flowLayoutPanelScenes.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelScenes.AutoScroll = true;
+            LoadScreens();
+        }
+
+        private void LoadScreens()
+        {
+            throw new NotImplementedException();
         }
 
         private void schließenAltF4ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -28,38 +35,71 @@ namespace Immersion
 
         private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            // Es können mehrere Dateien gedroppt werden, daher nur die erste nehmen
-            if (files.Length > 0 && Path.GetExtension(files[0]).ToLower() == ".xml")
-            {
-                ImmersionMain.sceneList = XMLHAndling.LoadScenesFromXML(files[0]);
-                //var testScene = new Scene("Lublub");
-                //var testScene2 = new Scene("Mein Name");
-                //var testScene3 = new Scene("Yay!");
-                //ImmersionMain.sceneList.Clear();
-                //ImmersionMain.sceneList.Add(testScene);
-                //ImmersionMain.sceneList.Add(testScene2);
-                //ImmersionMain.sceneList.Add(testScene3);
-            }
+            List<string>? files = e.Data.GetData(DataFormats.FileDrop) as List<string>;
+            if (files == null || files.Count() != 1 || Path.GetExtension(files[0]).ToLower() != ".xml")
+                return;
 
-            flowLayoutPanel1.Controls.Clear();
+            ImmersionMain.sceneList = XMLHandling.LoadScenesFromXML(files.First());
 
-            foreach (Scene scene in ImmersionMain.sceneList)
-            {
-                Panel scenePanel = scene.CreateScenePanel();
-                scenePanel.Width = flowLayoutPanel1.ClientSize.Width - 4;
-
-                flowLayoutPanel1.Controls.Add(scenePanel);
-            }
+            PopulateScenePanel();
         }
 
         private void flowLayoutPanel1_Resize(object sender, EventArgs e)
         {
-            foreach (Control child in flowLayoutPanel1.Controls)
+            foreach (Control child in flowLayoutPanelScenes.Controls)
             {
                 // Annahme: Padding/Abstand ggf. berücksichtigen
-                child.Width = flowLayoutPanel1.ClientSize.Width-4;
+                child.Width = flowLayoutPanelScenes.ClientSize.Width - 4;
             }
+        }
+
+        private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "XML-Dateien (*.xml)|*.xml";
+                dialog.Title = "Projekt speichern";
+                if (dialog.ShowDialog() != DialogResult.OK || !Directory.Exists(Path.GetDirectoryName(dialog.FileName)))
+                    return;
+
+                XMLHandling.SaveScenesToXML(dialog.FileName, ImmersionMain.sceneList);
+            }
+        }
+
+        private void öffnenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "XML-Dateien (*.xml)|*.xml";
+                dialog.Title = "XML-Datei auswählen";
+
+                if (dialog.ShowDialog() != DialogResult.OK || !File.Exists(dialog.FileName))
+                    return;
+
+                ImmersionMain.sceneList.Clear();
+                ImmersionMain.sceneList = XMLHandling.LoadScenesFromXML(dialog.FileName);
+                PopulateScenePanel();
+            }
+        }
+
+        private void PopulateScenePanel()
+        {
+            flowLayoutPanelScenes.Controls.Clear();
+
+            foreach (Scene scene in ImmersionMain.sceneList)
+            {
+                Panel scenePanel = scene.CreateScenePanel();
+                scenePanel.Width = flowLayoutPanelScenes.ClientSize.Width - 4;
+
+                flowLayoutPanelScenes.Controls.Add(scenePanel);
+            }
+        }
+
+        private void btnAddScene_Click(object sender, EventArgs e)
+        {
+            Scene scene = new Scene("", ImmersionMain.sceneList.Count() + 1, "", new List<Picture>(), new List<Video>(), new List<Sound>);
+            ImmersionMain.sceneList.Add(scene);
+            PopulateScenePanel();
         }
     }
 }
