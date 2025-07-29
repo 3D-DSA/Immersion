@@ -11,10 +11,12 @@ namespace Immersion.Classes
         public string Name { get; set; }
         public string Path { get; set; }
         public List<string> Tags { get; set; }  
+        public int Id { get; set; }
 
         public Media() { }
-        public Media(string name, string path, List<string> tags) 
+        public Media(int id, string name, string path, List<string> tags) 
         { 
+            Id = id;
             Name = name; 
             Path = path;
             Tags = new List<string>();
