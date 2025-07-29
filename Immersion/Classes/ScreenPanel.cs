@@ -1,0 +1,107 @@
+﻿
+using System.Windows.Forms;
+
+namespace Immersion.Classes
+{
+    public class ScreenPanel : Panel
+    {
+        private Screen screen;
+        private PictureBox pictureBox;
+        private Label label;
+        private Form pictureForm;
+
+        public ScreenPanel(Screen screen)
+        {
+            this.screen = screen;
+            this.Width = 100;
+            this.Height = 75;
+            this.BorderStyle = BorderStyle.FixedSingle;
+            this.AllowDrop = true;
+
+            pictureBox = new PictureBox();
+            pictureBox.Image = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "monitor.png"));
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.Size = new Size(Width, Height);
+            this.Controls.Add(pictureBox);
+
+            label = new Label();
+            label.Text = screen.DeviceName;
+            label.AutoSize = true;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+            this.Controls.Add(label);
+
+            this.DragEnter += Panel_DragEnter;
+            this.DragDrop += Panel_DragDrop;
+            this.MouseDown += Panel_MouseDown;
+            this.Click += Panel_Click;
+
+            this.Resize += (s, e) => LayoutControls();
+            LayoutControls();
+        }
+
+        private void LayoutControls()
+        {
+            // Grafik zentrieren
+            pictureBox.Location = new Point(
+                (this.ClientSize.Width - pictureBox.Width) / 2,
+                10);
+
+            // Label zentriert unterhalb
+            label.Location = new Point(
+                (this.ClientSize.Width - label.Width) / 2,
+                pictureBox.Bottom + 5);
+        }
+
+        private void Panel_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(ScreenPanel)))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void Panel_DragDrop(object sender, DragEventArgs e)
+        {
+            var dragged = e.Data.GetData(typeof(ScreenPanel)) as ScreenPanel;
+            if (dragged != null)
+            {
+                ShowElementOnScreen(dragged.label.Text);
+            }
+        }
+
+        public void ShowElementOnScreen(string text)
+        {
+            if (pictureForm != null && !pictureForm.IsDisposed) return;
+
+            pictureForm = new Form();
+            pictureForm.StartPosition = FormStartPosition.Manual;
+
+            Label popupLabel = new Label();
+            popupLabel.Text = text;
+            popupLabel.Dock = DockStyle.Fill;
+            popupLabel.TextAlign = ContentAlignment.MiddleCenter;
+            pictureForm.Controls.Add(popupLabel);
+
+            // Position und Größe auf den Arbeitsbereich des gewählten Monitors setzen
+            Rectangle workingArea = screen.WorkingArea;
+            pictureForm.Location = workingArea.Location;
+            pictureForm.Size = workingArea.Size;
+
+            pictureForm.Show();
+        }
+
+        private void Panel_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.DoDragDrop(this, DragDropEffects.Copy);
+        }
+
+        private void Panel_Click(object sender, EventArgs e)
+        {
+            if (pictureForm != null && !pictureForm.IsDisposed)
+            {
+                pictureForm.Close();
+                pictureForm  = null;
+            }
+        }
+    }
+}
