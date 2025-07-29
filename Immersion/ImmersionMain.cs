@@ -6,7 +6,7 @@ namespace Immersion
     {
         //public static List<Scene> sceneList = new List<Scene>();
         public static Dictionary<int, Scene> scenes = new Dictionary<int, Scene>();
-        public static Scene currentScene = new Scene();
+        public static Scene currentScene;
         public static List<ScreenPanel> screenList = new List<ScreenPanel>();
         /// <summary>
         ///  The main entry point for the application.

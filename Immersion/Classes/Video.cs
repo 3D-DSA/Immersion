@@ -8,13 +8,9 @@ namespace Immersion.Classes
 {
     internal class Video : Media
     {
-        public Video() { }
-        public Video(string? name, string? path, List<string> list)
+        public Video(int id, string path, List<string> list, string name = "") : 
+            base(id, path, list, name)
         {
-            this.Name = name;
-            this.Path = path;
-            Tags = new List<string>();
-            this.Tags = list;
         }
     }
 }

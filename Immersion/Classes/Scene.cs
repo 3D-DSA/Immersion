@@ -19,21 +19,7 @@ namespace Immersion.Classes
         private string BgImagePath;
         private Picture Background;
 
-        public Scene() {
-            PictureList = new List<Picture>();
-            VideoList = new List<Video>();
-            SoundList = new List<Sound>();
-        }
-
-        public Scene(string name)
-        {
-            PictureList = new List<Picture>();
-            VideoList = new List<Video>();
-            SoundList = new List<Sound>();
-            Name = name;
-        }
-
-        public Scene(string name, int id, string bgImage, List<Picture> pictures, List<Video> videos, List<Sound> sounds) : this(name)
+        public Scene(string name, int id, string bgImage, List<Picture> pictures, List<Video> videos, List<Sound> sounds)
         {
             PictureList = new List<Picture>();
             VideoList = new List<Video>();

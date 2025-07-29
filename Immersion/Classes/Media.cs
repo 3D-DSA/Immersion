@@ -9,18 +9,23 @@ namespace Immersion.Classes
     internal class Media
     {
         public string Name { get; set; }
-        public string Path { get; set; }
+        public string PathToFile { get; set; }
         public List<string> Tags { get; set; }  
         public int Id { get; set; }
 
-        public Media() { }
-        public Media(int id, string name, string path, List<string> tags) 
-        { 
+        public Media(int id, string path, List<string> tags, string name = "") 
+        {
+            if (String.IsNullOrWhiteSpace(path) || !Path.Exists(path))
+                throw new FileNotFoundException(path);
+
             Id = id;
-            Name = name; 
-            Path = path;
+            Name = String.IsNullOrWhiteSpace(name) ?
+                Path.GetFileNameWithoutExtension(path) :
+                name;
+            PathToFile = path;
             Tags = new List<string>();
-            Tags = tags;
+            if (tags != null)
+                Tags = tags;
         }
     }
 }

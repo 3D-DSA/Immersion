@@ -8,14 +8,9 @@ namespace Immersion.Classes
 {
     internal class Picture : Media
     {
-        public Picture(string? name, string? path, List<string> list)
+        public Picture(int id, string path, List<string> list, string name = "") : 
+            base(id, path, list, name)
         {
-            this.Name = name;
-            this.Path = path;
-            Tags = new List<string> ();
-            this.Tags = list;
         }
-
-        Picture() { }
     }
 }
