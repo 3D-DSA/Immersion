@@ -11,26 +11,26 @@ namespace Immersion.Classes
 {
     internal class XMLHandling
     {
-        internal static List<Scene> LoadScenesFromXML(string xmlFilePath)
+        internal static Dictionary<int, Scene> LoadScenesFromXML(string xmlFilePath)
         {   
-            var scenes = new List<Scene>();
+            var scenes = new Dictionary<int, Scene>();
             if (xmlFilePath == null || String.IsNullOrWhiteSpace( xmlFilePath)) 
                 return scenes;
 
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Scene>));
+            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<int, Scene>));
             using (FileStream fs = new FileStream(xmlFilePath, FileMode.Open))
             {
-                scenes = (List<Scene>)serializer.Deserialize(fs);
+                scenes = (Dictionary<int, Scene>)serializer.Deserialize(fs);
             }
             if(scenes == null)
-                return new List<Scene>();
+                return new Dictionary<int, Scene>();
 
             return scenes;
         }
 
-        internal static void SaveScenesToXML(string fileName, List<Scene> sceneList)
+        internal static void SaveScenesToXML(string fileName, Dictionary<int, Scene> sceneList)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Scene>));
+            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<int, Scene>));
             using (FileStream fs = new FileStream(fileName, FileMode.Create))
             {
                 serializer.Serialize(fs, sceneList);

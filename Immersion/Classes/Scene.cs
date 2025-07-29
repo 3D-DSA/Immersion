@@ -54,9 +54,9 @@ namespace Immersion.Classes
         public void AddSound(Sound sound) { SoundList.Add(sound); }
         public void RemoveSound(Sound sound) {SoundList.Remove(sound); }
 
-        internal Panel CreateScenePanel()
+        internal ScenePanel CreateScenePanel()
         {
-            var panel = new Panel()
+            var panel = new ScenePanel(Id, Name)
             {
                 Height = 80,
                 BorderStyle = BorderStyle.FixedSingle,
@@ -73,5 +73,14 @@ namespace Immersion.Classes
 
             return panel;
         }
+
+        internal void SetName(string name)
+        {
+            Name = name;
+        }
+
+        public int GetId()
+            { return Id;}
+
     }
 }
