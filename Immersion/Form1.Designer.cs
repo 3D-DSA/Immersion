@@ -36,11 +36,13 @@
             schließenAltF4ToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
             groupBox2 = new GroupBox();
+            btnAddScene = new Button();
             flowLayoutPanelScenes = new FlowLayoutPanel();
             splitContainer3 = new SplitContainer();
             splitContainer4 = new SplitContainer();
             groupBox4 = new GroupBox();
             flowLayoutPanelImages = new FlowLayoutPanel();
+            btnAddImage = new Button();
             groupBox5 = new GroupBox();
             flowLayoutPanelVideos = new FlowLayoutPanel();
             groupBox3 = new GroupBox();
@@ -48,7 +50,6 @@
             splitContainer2 = new SplitContainer();
             groupBox1 = new GroupBox();
             flowLayoutPanelScreens = new FlowLayoutPanel();
-            btnAddScene = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -129,7 +130,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(splitContainer3);
-            splitContainer1.Size = new Size(1679, 996);
+            splitContainer1.Size = new Size(1679, 639);
             splitContainer1.SplitterDistance = 378;
             splitContainer1.TabIndex = 1;
             // 
@@ -140,10 +141,21 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(378, 996);
+            groupBox2.Size = new Size(378, 639);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Szenen";
+            // 
+            // btnAddScene
+            // 
+            btnAddScene.Dock = DockStyle.Bottom;
+            btnAddScene.Location = new Point(3, 607);
+            btnAddScene.Name = "btnAddScene";
+            btnAddScene.Size = new Size(372, 29);
+            btnAddScene.TabIndex = 1;
+            btnAddScene.Text = "+";
+            btnAddScene.UseVisualStyleBackColor = true;
+            btnAddScene.Click += btnAddScene_Click;
             // 
             // flowLayoutPanelScenes
             // 
@@ -153,11 +165,11 @@
             flowLayoutPanelScenes.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanelScenes.Location = new Point(3, 23);
             flowLayoutPanelScenes.Name = "flowLayoutPanelScenes";
-            flowLayoutPanelScenes.Size = new Size(372, 935);
+            flowLayoutPanelScenes.Size = new Size(372, 578);
             flowLayoutPanelScenes.TabIndex = 0;
             flowLayoutPanelScenes.WrapContents = false;
-            flowLayoutPanelScenes.DragDrop += flowLayoutPanel1_DragDrop;
-            flowLayoutPanelScenes.DragEnter += flowLayoutPanel1_DragEnter;
+            flowLayoutPanelScenes.DragDrop += flowLayoutPanelScenes_DragDrop;
+            flowLayoutPanelScenes.DragEnter += flowLayoutPanelScenes_DragEnter;
             flowLayoutPanelScenes.Resize += flowLayoutPanel1_Resize;
             // 
             // splitContainer3
@@ -174,8 +186,8 @@
             // splitContainer3.Panel2
             // 
             splitContainer3.Panel2.Controls.Add(groupBox3);
-            splitContainer3.Size = new Size(1297, 996);
-            splitContainer3.SplitterDistance = 663;
+            splitContainer3.Size = new Size(1297, 639);
+            splitContainer3.SplitterDistance = 425;
             splitContainer3.TabIndex = 0;
             // 
             // splitContainer4
@@ -191,28 +203,39 @@
             // splitContainer4.Panel2
             // 
             splitContainer4.Panel2.Controls.Add(groupBox5);
-            splitContainer4.Size = new Size(1297, 663);
+            splitContainer4.Size = new Size(1297, 425);
             splitContainer4.SplitterDistance = 602;
             splitContainer4.TabIndex = 0;
             // 
             // groupBox4
             // 
             groupBox4.Controls.Add(flowLayoutPanelImages);
+            groupBox4.Controls.Add(btnAddImage);
             groupBox4.Dock = DockStyle.Fill;
             groupBox4.Location = new Point(0, 0);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(602, 663);
+            groupBox4.Size = new Size(602, 425);
             groupBox4.TabIndex = 0;
             groupBox4.TabStop = false;
             groupBox4.Text = "Bilder";
             // 
             // flowLayoutPanelImages
             // 
-            flowLayoutPanelImages.Dock = DockStyle.Fill;
-            flowLayoutPanelImages.Location = new Point(3, 23);
+            flowLayoutPanelImages.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanelImages.Location = new Point(6, 23);
             flowLayoutPanelImages.Name = "flowLayoutPanelImages";
-            flowLayoutPanelImages.Size = new Size(596, 637);
-            flowLayoutPanelImages.TabIndex = 0;
+            flowLayoutPanelImages.Size = new Size(590, 364);
+            flowLayoutPanelImages.TabIndex = 2;
+            // 
+            // btnAddImage
+            // 
+            btnAddImage.Dock = DockStyle.Bottom;
+            btnAddImage.Location = new Point(3, 393);
+            btnAddImage.Name = "btnAddImage";
+            btnAddImage.Size = new Size(596, 29);
+            btnAddImage.TabIndex = 1;
+            btnAddImage.Text = "+";
+            btnAddImage.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -220,7 +243,7 @@
             groupBox5.Dock = DockStyle.Fill;
             groupBox5.Location = new Point(0, 0);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(691, 663);
+            groupBox5.Size = new Size(691, 425);
             groupBox5.TabIndex = 0;
             groupBox5.TabStop = false;
             groupBox5.Text = "Videos";
@@ -230,7 +253,7 @@
             flowLayoutPanelVideos.Dock = DockStyle.Fill;
             flowLayoutPanelVideos.Location = new Point(3, 23);
             flowLayoutPanelVideos.Name = "flowLayoutPanelVideos";
-            flowLayoutPanelVideos.Size = new Size(685, 637);
+            flowLayoutPanelVideos.Size = new Size(685, 399);
             flowLayoutPanelVideos.TabIndex = 0;
             // 
             // groupBox3
@@ -239,7 +262,7 @@
             groupBox3.Dock = DockStyle.Fill;
             groupBox3.Location = new Point(0, 0);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(1297, 329);
+            groupBox3.Size = new Size(1297, 210);
             groupBox3.TabIndex = 0;
             groupBox3.TabStop = false;
             groupBox3.Text = "Musik";
@@ -249,7 +272,7 @@
             flowLayoutPanelMusic.Dock = DockStyle.Fill;
             flowLayoutPanelMusic.Location = new Point(3, 23);
             flowLayoutPanelMusic.Name = "flowLayoutPanelMusic";
-            flowLayoutPanelMusic.Size = new Size(1291, 303);
+            flowLayoutPanelMusic.Size = new Size(1291, 184);
             flowLayoutPanelMusic.TabIndex = 0;
             // 
             // splitContainer2
@@ -266,8 +289,8 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(groupBox1);
-            splitContainer2.Size = new Size(1679, 1185);
-            splitContainer2.SplitterDistance = 996;
+            splitContainer2.Size = new Size(1679, 761);
+            splitContainer2.SplitterDistance = 639;
             splitContainer2.TabIndex = 2;
             // 
             // groupBox1
@@ -277,7 +300,7 @@
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1679, 185);
+            groupBox1.Size = new Size(1679, 118);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Bildschirme";
@@ -287,25 +310,15 @@
             flowLayoutPanelScreens.Dock = DockStyle.Fill;
             flowLayoutPanelScreens.Location = new Point(3, 23);
             flowLayoutPanelScreens.Name = "flowLayoutPanelScreens";
-            flowLayoutPanelScreens.Size = new Size(1673, 159);
+            flowLayoutPanelScreens.Size = new Size(1673, 92);
             flowLayoutPanelScreens.TabIndex = 0;
-            // 
-            // btnAddScene
-            // 
-            btnAddScene.Dock = DockStyle.Bottom;
-            btnAddScene.Location = new Point(3, 964);
-            btnAddScene.Name = "btnAddScene";
-            btnAddScene.Size = new Size(372, 29);
-            btnAddScene.TabIndex = 1;
-            btnAddScene.Text = "+";
-            btnAddScene.UseVisualStyleBackColor = true;
-            btnAddScene.Click += btnAddScene_Click;
+            flowLayoutPanelScreens.Resize += flowLayoutPanelScreens_Resize;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1679, 1213);
+            ClientSize = new Size(1679, 789);
             Controls.Add(splitContainer2);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -358,9 +371,10 @@
         private FlowLayoutPanel flowLayoutPanelScreens;
         private SplitContainer splitContainer4;
         private GroupBox groupBox4;
-        private FlowLayoutPanel flowLayoutPanelImages;
         private GroupBox groupBox5;
         private FlowLayoutPanel flowLayoutPanelVideos;
         private Button btnAddScene;
+        private Button btnAddImage;
+        private FlowLayoutPanel flowLayoutPanelImages;
     }
 }
