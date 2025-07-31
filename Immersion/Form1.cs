@@ -227,7 +227,7 @@ namespace Immersion
 
             // Markierung aktualisieren
             foreach (ScenePanel panel in flowLayoutPanelScenes.Controls.OfType<ScenePanel>())
-                selectedPanel.SetActiveMarker(ImmersionMain.currentScene.GetId() == panel.GetId()); 
+                panel.SetActiveMarker(ImmersionMain.currentScene.GetId() == panel.GetId()); 
         }
 
         private void schlieﬂenAltF4ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -268,7 +268,5 @@ namespace Immersion
                 flowLayoutPanelScenes.Controls.Add(scenePanel);
             }
         }
-
-        
     }
 }
