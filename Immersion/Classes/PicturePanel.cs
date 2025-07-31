@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace Immersion.Classes
 {
-    public class PicturenPanel : Panel
+    public class PicturePanel : Panel
     {
         private PictureBox pictureBox;
         private Label label;
         private Form pictureForm;
         private string imgPath;
 
-        public PicturenPanel(string imagePath)
+        public PicturePanel(string imagePath)
         {
             if (String.IsNullOrWhiteSpace(imagePath)) 
                 imgPath = Path.Combine(Application.StartupPath, "Images", "photo.png");
@@ -30,6 +30,8 @@ namespace Immersion.Classes
             pictureBox.Image = Image.FromFile(imgPath);
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox.Size = new Size(Width, Height);
+            // Event-Handler an der PictureBox registrieren
+            pictureBox.MouseDown += PictureBox_MouseDown;
             this.Controls.Add(pictureBox);
 
             label = new Label();
@@ -39,6 +41,7 @@ namespace Immersion.Classes
             label.TextAlign = ContentAlignment.MiddleCenter;
             label.ForeColor = Color.White;
             label.Font = new Font(label.Font, FontStyle.Bold);
+            label.MouseDown += PictureBox_MouseDown;
             this.Controls.Add(label);
 
             //this.DragEnter += Panel_DragEnter;
@@ -50,6 +53,23 @@ namespace Immersion.Classes
             LayoutControls();
         }
 
+        public string GetImagePath() { return imgPath; }
+        private void PictureBox_MouseDown(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                PictureBox pb = sender as PictureBox;
+                if (pb != null)
+                {
+                    Panel parentPanel = pb.Parent as Panel; // das PicturePanel
+                    if (parentPanel != null)
+                    {
+                        DoDragDrop(parentPanel, DragDropEffects.Move);
+                    }
+                }
+            }
+        }
+
         private void LayoutControls()
         {
             // Grafik zentrieren
@@ -58,9 +78,9 @@ namespace Immersion.Classes
                 10);
 
             // Label zentriert unterhalb
-            label.Location = new Point(
-                (this.ClientSize.Width - label.Width) / 2,
-                pictureBox.Bottom + 5);
+            //label.Location = new Point(
+            //    (this.ClientSize.Width - label.Width) / 2,
+            //    pictureBox.Bottom + 5);
         }
 
         //private void Panel_DragEnter(object sender, DragEventArgs e)

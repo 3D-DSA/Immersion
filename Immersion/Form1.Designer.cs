@@ -236,6 +236,7 @@
             btnAddImage.TabIndex = 1;
             btnAddImage.Text = "+";
             btnAddImage.UseVisualStyleBackColor = true;
+            btnAddImage.Click += btnAddImage_Click;
             // 
             // groupBox5
             // 

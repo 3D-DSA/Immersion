@@ -22,17 +22,24 @@ namespace Immersion.Classes
             pictureBox.Image = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "monitor.png"));
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox.Size = new Size(Width, Height);
+            pictureBox.AllowDrop = true;
+            pictureBox.DragEnter += Panel_DragEnter;
+            pictureBox.DragDrop += Panel_DragDrop;
+            pictureBox.Click += Panel_Click;
             this.Controls.Add(pictureBox);
 
             label = new Label();
             label.Text = screen.DeviceName;
             label.AutoSize = true;
             label.TextAlign = ContentAlignment.MiddleCenter;
+            label.AllowDrop = true;
+            label.DragEnter += Panel_DragEnter;
+            label.DragDrop += Panel_DragDrop;
+            label.Click += Panel_Click;
             this.Controls.Add(label);
 
             this.DragEnter += Panel_DragEnter;
             this.DragDrop += Panel_DragDrop;
-            this.MouseDown += Panel_MouseDown;
             this.Click += Panel_Click;
 
             this.Resize += (s, e) => LayoutControls();
@@ -51,50 +58,6 @@ namespace Immersion.Classes
                 (this.ClientSize.Width - label.Width) / 2,
                 pictureBox.Bottom + 5);
         }
-
-        private void Panel_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(ScreenPanel)))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
-        }
-
-        private void Panel_DragDrop(object sender, DragEventArgs e)
-        {
-            var dragged = e.Data.GetData(typeof(ScreenPanel)) as ScreenPanel;
-            if (dragged != null)
-            {
-                ShowElementOnScreen(dragged.label.Text);
-            }
-        }
-
-        public void ShowElementOnScreen(string text)
-        {
-            if (pictureForm != null && !pictureForm.IsDisposed) return;
-
-            pictureForm = new Form();
-            pictureForm.StartPosition = FormStartPosition.Manual;
-
-            Label popupLabel = new Label();
-            popupLabel.Text = text;
-            popupLabel.Dock = DockStyle.Fill;
-            popupLabel.TextAlign = ContentAlignment.MiddleCenter;
-            pictureForm.Controls.Add(popupLabel);
-
-            // Position und Größe auf den Arbeitsbereich des gewählten Monitors setzen
-            Rectangle workingArea = screen.WorkingArea;
-            pictureForm.Location = workingArea.Location;
-            pictureForm.Size = workingArea.Size;
-
-            pictureForm.Show();
-        }
-
-        private void Panel_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.DoDragDrop(this, DragDropEffects.Copy);
-        }
-
         private void Panel_Click(object sender, EventArgs e)
         {
             if (pictureForm != null && !pictureForm.IsDisposed)
@@ -102,6 +65,44 @@ namespace Immersion.Classes
                 pictureForm.Close();
                 pictureForm  = null;
             }
+            pictureBox.Image = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "monitor.png"));
         }
+        private void Panel_DragDrop(object sender, DragEventArgs e)
+        {
+            var dragged = e.Data.GetData(typeof(PicturePanel)) as PicturePanel;
+            if (dragged != null)
+            {
+                ShowElementOnScreen(dragged.GetImagePath());
+            }
+        }
+        private void Panel_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(PicturePanel)))
+                e.Effect = DragDropEffects.Move;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+        public void ShowElementOnScreen(string text)
+        {
+            if (pictureForm != null && !pictureForm.IsDisposed) return;
+
+            pictureForm = new Form();
+            pictureForm.StartPosition = FormStartPosition.Manual;
+
+            PictureBox imgToShow = new PictureBox();
+            imgToShow.Image = Image.FromFile(text);
+            imgToShow.SizeMode = PictureBoxSizeMode.StretchImage;
+            imgToShow.Dock = DockStyle.Fill;
+            pictureForm.Controls.Add(imgToShow);
+
+            // Position und Größe auf den Arbeitsbereich des gewählten Monitors setzen
+            Rectangle workingArea = screen.WorkingArea;
+            pictureForm.Location = workingArea.Location;
+            pictureForm.Size = workingArea.Size;
+
+            pictureForm.Show();
+            pictureBox.Image = Image.FromFile(text);
+        }
+
     }
 }

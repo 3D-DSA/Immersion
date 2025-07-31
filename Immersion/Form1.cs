@@ -1,4 +1,8 @@
 using Immersion.Classes;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Immersion
@@ -17,15 +21,76 @@ namespace Immersion
             flowLayoutPanelImages.DragEnter += flowLayoutPanelImages_DragEnter;
             flowLayoutPanelImages.DragDrop += flowLayoutPanelImages_DragDrop;
 
+            // bind events from the current scene to the flowLayoutPanels
+            ImmersionMain.currentScene = new Scene("Neue Szene", 1, "", new ObservableCollection<Picture>(),
+                new ObservableCollection<Video>(), new ObservableCollection<Sound>());
+            ImmersionMain.scenes.Add(1, ImmersionMain.currentScene);
+            SynchronizeSceneFlowLayoutPanel();
+
+            if (ImmersionMain.currentScene != null)
+            {
+                ImmersionMain.currentScene.PictureList.CollectionChanged += PictureList_CollectionChanged;
+                // Initiale Anzeige
+                SynchronizePictureFlowLayoutPanel();
+            }
+
         }
 
-        private void flowLayoutPanelImages_DragEnter(object? sender, DragEventArgs e)
+        private void btnAddImage_Click(object sender, EventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Multiselect = true;
+                openFileDialog.Filter = "Bilddateien (*.bmp;*.jpg;*.jpeg;*.png)|" +
+                    "*.bmp;*.jpg;*.jpeg;*.png";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    List<string> imageList = new List<string>(openFileDialog.FileNames);
+
+                    ImmersionMain.AddImagesToList(imageList);
+                }
+            }
         }
+
+        private void btnAddScene_Click(object sender, EventArgs e)
+        {
+            if (ImmersionMain.currentScene != null)
+                ImmersionMain.currentScene.PictureList.CollectionChanged -= PictureList_CollectionChanged;
+
+            Scene scene = new Scene("", ImmersionMain.scenes.Count() + 1, "", new ObservableCollection<Picture>(), new ObservableCollection<Video>(), new ObservableCollection<Sound>());
+            ImmersionMain.scenes.Add(ImmersionMain.scenes.Count() + 1, scene);
+            ImmersionMain.SwapCurrentScene(scene);
+            ImmersionMain.currentScene.PictureList.CollectionChanged += PictureList_CollectionChanged;
+            PopulateScenePanel();
+        }
+
+        private Control? CreatePanelForScene(KeyValuePair<int, Scene> scene)
+        {
+            ScenePanel scenePanel = new ScenePanel(scene.Key, scene.Value.GetName());
+            scenePanel.Tag = scene.Key;
+            return scenePanel;
+        }
+
+        private Control? CreatePanelForPicture(object newItem)
+        {
+            // Beispiel: Panel erstellen, mit Tag setzen etc.
+            Picture pic = (Picture)newItem;
+            PicturePanel p = new PicturePanel(pic.PathToFile);
+            p.Tag = pic.Id;
+            return p;
+        }
+
+        private Control? FindPanelByTag(object tag, FlowLayoutPanel flp)
+        {
+            foreach (Control c in flp.Controls)
+            {
+                if (c.Tag == tag)
+                    return c;
+            }
+            return null;
+        }
+
 
         private void flowLayoutPanelImages_DragDrop(object? sender, DragEventArgs e)
         {
@@ -38,37 +103,12 @@ namespace Immersion
                 {
                     if (!validImageTypes.Any(v => v.Contains(Path.GetExtension(file))))
                         continue;
-                    PicturenPanel picPanel = new PicturenPanel(file);
+                    PicturePanel picPanel = new PicturePanel(file);
                     flowLayoutPanelImages.Controls.Add(picPanel);
                 }
                 catch { }
             }
         }
-
-        private void LoadScreens()
-        {
-            foreach (Screen screen in Screen.AllScreens)
-            {
-                ScreenPanel newScreenPanel = new ScreenPanel(screen);
-                newScreenPanel.Height = flowLayoutPanelScreens.Height - 4;
-                flowLayoutPanelScreens.Controls.Add(newScreenPanel);
-
-            }
-        }
-
-        private void schlieﬂenAltF4ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void flowLayoutPanelScenes_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
-        }
-
         private void flowLayoutPanelScenes_DragDrop(object sender, DragEventArgs e)
         {
             List<string>? files = e.Data.GetData(DataFormats.FileDrop) as List<string>;
@@ -79,7 +119,27 @@ namespace Immersion
 
             PopulateScenePanel();
         }
-
+        private void flowLayoutPanelImages_DragEnter(object? sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+        private void flowLayoutPanelScenes_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+        private void flowLayoutPanelScreens_Resize(object sender, EventArgs e)
+        {
+            foreach (Control control in flowLayoutPanelScenes.Controls)
+            {
+                control.Height = flowLayoutPanelScreens.Height - 4;
+            }
+        }
         private void flowLayoutPanel1_Resize(object sender, EventArgs e)
         {
             foreach (Control child in flowLayoutPanelScenes.Controls)
@@ -88,16 +148,17 @@ namespace Immersion
             }
         }
 
-        private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadScreens()
         {
-            using (SaveFileDialog dialog = new SaveFileDialog())
+            foreach (Screen screen in Screen.AllScreens)
             {
-                dialog.Filter = "XML-Dateien (*.xml)|*.xml";
-                dialog.Title = "Projekt speichern";
-                if (dialog.ShowDialog() != DialogResult.OK || !Directory.Exists(Path.GetDirectoryName(dialog.FileName)))
-                    return;
+                ScreenPanel newScreenPanel = new ScreenPanel(screen);
+                newScreenPanel.Height = flowLayoutPanelScreens.Height - 4;
 
-                XMLHandling.SaveScenesToXML(dialog.FileName, ImmersionMain.scenes);
+                System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
+                tt.SetToolTip(newScreenPanel, screen.DeviceName);
+
+                flowLayoutPanelScreens.Controls.Add(newScreenPanel);
             }
         }
 
@@ -117,6 +178,36 @@ namespace Immersion
             }
         }
 
+        private void PictureList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            // Reagiere auf Add/Remove etc.
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (var newItem in e.NewItems)
+                {
+                    var p = CreatePanelForPicture(newItem);
+
+                    flowLayoutPanelImages.Controls.Add(p);
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (var oldItem in e.OldItems)
+                {
+                    var panel = FindPanelByTag(oldItem, flowLayoutPanelImages);
+                    if (panel != null)
+                    {
+                        flowLayoutPanelImages.Controls.Remove(panel);
+                        panel.Dispose();
+                    }
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                SynchronizePictureFlowLayoutPanel();
+            }
+        }
+
         private void PopulateScenePanel()
         {
             flowLayoutPanelScenes.Controls.Clear();
@@ -129,21 +220,41 @@ namespace Immersion
                 flowLayoutPanelScenes.Controls.Add(scenePanel);
             }
         }
-
-        private void btnAddScene_Click(object sender, EventArgs e)
+        private void schlieﬂenAltF4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Scene scene = new Scene("", ImmersionMain.scenes.Count() + 1, "", new List<Picture>(), new List<Video>(), new List<Sound>());
-            ImmersionMain.scenes.Add(ImmersionMain.scenes.Count() + 1, scene);
-            ImmersionMain.SwapCurrentScene(scene);
-            PopulateScenePanel();
+            Application.Exit();
         }
-
-        private void flowLayoutPanelScreens_Resize(object sender, EventArgs e)
+        private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (Control control in flowLayoutPanelScenes.Controls)
+            using (SaveFileDialog dialog = new SaveFileDialog())
             {
-                control.Height = flowLayoutPanelScreens.Height - 4;
+                dialog.Filter = "XML-Dateien (*.xml)|*.xml";
+                dialog.Title = "Projekt speichern";
+                if (dialog.ShowDialog() != DialogResult.OK || !Directory.Exists(Path.GetDirectoryName(dialog.FileName)))
+                    return;
+
+                XMLHandling.SaveScenesToXML(dialog.FileName, ImmersionMain.scenes);
             }
         }
+
+        private void SynchronizePictureFlowLayoutPanel()
+        {
+            flowLayoutPanelImages.Controls.Clear();
+            foreach (var pic in ImmersionMain.currentScene.PictureList)
+            {
+                flowLayoutPanelImages.Controls.Add(CreatePanelForPicture(pic));
+            }
+        }
+
+        private void SynchronizeSceneFlowLayoutPanel()
+        {
+            flowLayoutPanelScenes.Controls.Clear();
+            foreach (var scene in ImmersionMain.scenes)
+            {
+                flowLayoutPanelScenes.Controls.Add(CreatePanelForScene(scene));
+            }
+        }
+
+        
     }
 }

@@ -1,4 +1,5 @@
 using Immersion.Classes;
+using System.Collections.ObjectModel;
 
 namespace Immersion
 {
@@ -20,6 +21,19 @@ namespace Immersion
             Application.Run(new Form1());
 
         }
+
+        internal static void AddImagesToList(List<string> imagePathList)
+        {
+            if (currentScene == null) InitializeCurrentScene();
+
+            foreach (string imagePath in imagePathList)
+            {
+                Picture newPic = new Picture(currentScene.PictureCount() + 1,
+                    imagePath, null);
+                currentScene.AddPicture(newPic);
+            }
+        }
+
         /// <summary>
         /// Swaps a new scene with the currently used scene. The old scene is stored
         /// in the scenes dictionary
@@ -33,6 +47,19 @@ namespace Immersion
             else
                 scenes.Add(currentScene.GetId(), currentScene);
             currentScene = scene;
+        }
+
+        internal static void InitializeCurrentScene(bool forceOverride = false)
+        {
+            if(currentScene != null && !forceOverride) return;
+            currentScene = new Scene(
+                "Neue Szene",
+                scenes.Count() + 1,
+                "",
+                new ObservableCollection<Picture>(),
+                new ObservableCollection<Video>(),
+                new ObservableCollection<Sound>());
+
         }
     }
 }
