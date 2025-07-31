@@ -211,11 +211,25 @@ namespace Immersion
                 ScenePanel scenePanel = scene.Value.CreateScenePanel();
                 scenePanel.Width = flowLayoutPanelScenes.ClientSize.Width - 10;
                 scenePanel.SetActiveMarker(scene.Key == ImmersionMain.currentScene.GetId());
-
+                scenePanel.Selected += ScenePanel_Selected;
 
                 flowLayoutPanelScenes.Controls.Add(scenePanel);
             }
         }
+
+        private void ScenePanel_Selected(object? sender, EventArgs e)
+        {
+            ScenePanel selectedPanel = sender as ScenePanel;
+            if (selectedPanel == null) return;
+
+            // Globale Variable setzen
+            ImmersionMain.currentScene = ImmersionMain.scenes[selectedPanel.GetId()];
+
+            // Markierung aktualisieren
+            foreach (ScenePanel panel in flowLayoutPanelScenes.Controls.OfType<ScenePanel>())
+                selectedPanel.SetActiveMarker(ImmersionMain.currentScene.GetId() == panel.GetId()); 
+        }
+
         private void schlieﬂenAltF4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -246,7 +260,13 @@ namespace Immersion
         {
             flowLayoutPanelScenes.Controls.Clear();
             foreach (var scene in ImmersionMain.scenes)
-                flowLayoutPanelScenes.Controls.Add(scene.Value.CreateScenePanel());
+            {
+                var scenePanel = scene.Value.CreateScenePanel();
+                scenePanel.SetActiveMarker(ImmersionMain.currentScene.GetId() == scenePanel.GetId());
+                scenePanel.Width = flowLayoutPanelScenes.ClientSize.Width - 10;
+                scenePanel.Selected += ScenePanel_Selected;
+                flowLayoutPanelScenes.Controls.Add(scenePanel);
+            }
         }
 
         
