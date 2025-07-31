@@ -3,6 +3,7 @@ Immersion hilft Spielleiter:innen schnell und unkompliziert Bilder auf einem bel
 # Versionshistorie
 ## Version 0.1
 Eine erste grundlegende Version in der noch Vieles unpoliert ist und noch mehr nicht richtig funktioniert. ABer man kann Bilder in die Bilderliste laden und immer eins davon auf einem definierten Monitor anzeigen lassen.<br>Hauptaufgabe dieser Version war es die zugrundeliegende Struktur zu definieren.
+<br> .Net 8.0 | anyCPU
 # Zukunftsmusik
 - Szenen einbauen
 - Videosupport einbauen
