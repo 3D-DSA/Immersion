@@ -14,6 +14,7 @@ namespace Immersion.Classes
         private Label Label;
         private TextBox TextBox;
         private Panel MarkerBar;
+        public event EventHandler Selected;
 
         public ScenePanel(int id, string name)
         {
@@ -56,7 +57,8 @@ namespace Immersion.Classes
 
         private void ScenePanel_Click(object? sender, EventArgs e)
         {
-            ImmersionMain.currentScene = ImmersionMain.scenes[ID];  
+            // Event nach außen geben
+            Selected?.Invoke(this, EventArgs.Empty);
         }
 
         private void ShowTextBox()
@@ -102,5 +104,7 @@ namespace Immersion.Classes
         {
             MarkerBar.Visible = activeStatus;
         }
+
+        internal int GetId() { return ID; }
     }
 }
