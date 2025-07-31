@@ -210,6 +210,8 @@ namespace Immersion
             {
                 ScenePanel scenePanel = scene.Value.CreateScenePanel();
                 scenePanel.Width = flowLayoutPanelScenes.ClientSize.Width - 10;
+                scenePanel.SetActiveMarker(scene.Key == ImmersionMain.currentScene.GetId());
+
 
                 flowLayoutPanelScenes.Controls.Add(scenePanel);
             }

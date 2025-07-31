@@ -13,6 +13,7 @@ namespace Immersion.Classes
         private string bgImagePath;
         private Label Label;
         private TextBox TextBox;
+        private Panel MarkerBar;
 
         public ScenePanel(int id, string name)
         {
@@ -35,9 +36,16 @@ namespace Immersion.Classes
             TextBox.KeyDown += TextBox_KeyDown;
             TextBox.LostFocus += TextBox_LostFocus;
 
+            MarkerBar = new Panel();
+            MarkerBar.Size = new Size(6, this.Height);
+            MarkerBar.BackColor = Color.LimeGreen;
+            MarkerBar.Dock = DockStyle.Right;
+            MarkerBar.Visible = false;
+
+            this.Controls.Add(MarkerBar);
             this.Controls.Add(Label);
             this.Controls.Add(TextBox);
-
+            
             this.Click += ScenePanel_Click;
 
             if (string.IsNullOrEmpty(Label.Text))
@@ -48,7 +56,6 @@ namespace Immersion.Classes
 
         private void ScenePanel_Click(object? sender, EventArgs e)
         {
-            //this.BorderStyle = BorderStyle.Fixed3D;
             ImmersionMain.currentScene = ImmersionMain.scenes[ID];  
         }
 
@@ -89,6 +96,11 @@ namespace Immersion.Classes
         private void Label_DoubleClick(object? sender, EventArgs e)
         {
             ShowTextBox();
+        }
+
+        internal void SetActiveMarker(bool activeStatus)
+        {
+            MarkerBar.Visible = activeStatus;
         }
     }
 }
