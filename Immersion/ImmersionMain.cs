@@ -43,7 +43,7 @@ namespace Immersion
         {
             if (scene == null) return;
             if (scenes.ContainsKey(currentScene.GetId()))
-                scenes[scene.GetId()] = currentScene;
+                scenes[currentScene.GetId()] = currentScene;
             else
                 scenes.Add(currentScene.GetId(), currentScene);
             currentScene = scene;
