@@ -47,22 +47,12 @@ namespace Immersion.Classes
 
         internal ScenePanel CreateScenePanel()
         {
-            var panel = new ScenePanel(Id, Name)
+            return new ScenePanel(Id, Name)
             {
                 Height = 80,
                 BorderStyle = BorderStyle.FixedSingle,
                 Margin = new Padding(3),
             };
-
-            var lbl = new Label()
-            {
-                Text = Name,
-                AutoSize = true,
-                Font = new Font(FontFamily.GenericSansSerif, 12.0f, FontStyle.Bold),
-            };
-            panel.Controls.Add(lbl);
-
-            return panel;
         }
 
         internal void SetName(string name)

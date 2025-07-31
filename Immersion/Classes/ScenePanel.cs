@@ -20,14 +20,16 @@ namespace Immersion.Classes
             {
                 Text = String.IsNullOrWhiteSpace(name) ? "Neue Szene" : name,
                 Location = new Point(0, 0),
-                AutoSize = true, // passt Größe automatisch an
+                AutoSize = true,
+                Font = new Font(FontFamily.GenericSansSerif, 12.0f, FontStyle.Bold),
             };
             Label.DoubleClick += Label_DoubleClick;
 
             TextBox = new TextBox
             {
+                Text = "",
                 Location = Label.Location,
-                Size = Label.Size,
+                //Size = new Size( Parent.Width - 10, this.Height), //Label.Size,
                 Visible = false
             };
             TextBox.KeyDown += TextBox_KeyDown;
@@ -53,7 +55,7 @@ namespace Immersion.Classes
         private void ShowTextBox()
         {
             TextBox.Text = Label.Text;
-            TextBox.Size = new Size(Math.Max(100, Label.Width + 20), Label.Height); // passend anpassen
+            TextBox.Size = new Size(Parent.Width - 10, this.Height);
             Label.Visible = false;
             TextBox.Visible = true;
             TextBox.Focus();
