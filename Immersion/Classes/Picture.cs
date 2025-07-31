@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Immersion.Classes
 {
-    internal class Picture : Media
+    public class Picture : Media
     {
         public Picture(int id, string path, List<string> list, string name = "") : 
             base(id, path, list, name)
         {
         }
+        public Picture() : base()
+        { }
     }
 }

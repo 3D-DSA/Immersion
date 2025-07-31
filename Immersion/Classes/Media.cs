@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Immersion.Classes
 {
-    internal class Media
+    public class Media
     {
         public string Name { get; set; }
         public string PathToFile { get; set; }
@@ -27,5 +27,6 @@ namespace Immersion.Classes
             if (tags != null)
                 Tags = tags;
         }
+        public Media() { }
     }
 }

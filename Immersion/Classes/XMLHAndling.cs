@@ -13,24 +13,32 @@ namespace Immersion.Classes
     {
         internal static Dictionary<int, Scene> LoadScenesFromXML(string xmlFilePath)
         {   
-            var scenes = new Dictionary<int, Scene>();
-            if (xmlFilePath == null || String.IsNullOrWhiteSpace( xmlFilePath)) 
-                return scenes;
+            var sceneDictionary = new Dictionary<int, Scene>();
+            var sceneList = new List<Scene>();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<int, Scene>));
+            if (xmlFilePath == null || String.IsNullOrWhiteSpace( xmlFilePath)) 
+                return sceneDictionary;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Scene>));
             using (FileStream fs = new FileStream(xmlFilePath, FileMode.Open))
             {
-                scenes = (Dictionary<int, Scene>)serializer.Deserialize(fs);
+                sceneList = (List<Scene>)serializer.Deserialize(fs);
             }
-            if(scenes == null)
+            if(sceneList == null)
                 return new Dictionary<int, Scene>();
 
-            return scenes;
+            foreach (Scene scene in sceneList)
+                sceneDictionary.Add(scene.GetId(), scene);
+
+            return sceneDictionary;
         }
 
-        internal static void SaveScenesToXML(string fileName, Dictionary<int, Scene> sceneList)
+        public static void SaveScenesToXML(string fileName, Dictionary<int, Scene> sceneDictionary)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<int, Scene>));
+            List<Scene> sceneList = new List<Scene>();
+            foreach (Scene scene in sceneDictionary.Values) { sceneList.Add(scene); }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Scene>));
             using (FileStream fs = new FileStream(fileName, FileMode.Create))
             {
                 serializer.Serialize(fs, sceneList);

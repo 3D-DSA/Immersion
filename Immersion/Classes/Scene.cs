@@ -9,17 +9,19 @@ using System.Windows.Forms;
 
 namespace Immersion.Classes
 {
-    internal class Scene
+    public class Scene
     {
         public ObservableCollection<Picture> PictureList;
         public ObservableCollection<Video> VideoList;
         public ObservableCollection<Sound> SoundList;
 
-        private string Name;
-        private int Id;
-        private string BgImagePath;
-        private Picture Background;
+        public string Name;
+        public int Id;
+        public string BgImagePath;
+        public Picture Background;
 
+        public Scene()
+        { }
         public Scene(string name, int id, string bgImage, ObservableCollection<Picture> pictures, ObservableCollection<Video> videos, ObservableCollection<Sound> sounds)
         {
             PictureList = new ObservableCollection<Picture>();
