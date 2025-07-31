@@ -24,6 +24,7 @@ namespace Immersion
             // bind events from the current scene to the flowLayoutPanels
             ImmersionMain.currentScene = new Scene("Neue Szene", 1, "", new ObservableCollection<Picture>(),
                 new ObservableCollection<Video>(), new ObservableCollection<Sound>());
+
             ImmersionMain.scenes.Add(1, ImmersionMain.currentScene);
             SynchronizeSceneFlowLayoutPanel();
 
@@ -63,13 +64,6 @@ namespace Immersion
             ImmersionMain.SwapCurrentScene(scene);
             ImmersionMain.currentScene.PictureList.CollectionChanged += PictureList_CollectionChanged;
             PopulateScenePanel();
-        }
-
-        private Control? CreatePanelForScene(KeyValuePair<int, Scene> scene)
-        {
-            ScenePanel scenePanel = new ScenePanel(scene.Key, scene.Value.GetName());
-            scenePanel.Tag = scene.Key;
-            return scenePanel;
         }
 
         private Control? CreatePanelForPicture(object newItem)
@@ -250,9 +244,7 @@ namespace Immersion
         {
             flowLayoutPanelScenes.Controls.Clear();
             foreach (var scene in ImmersionMain.scenes)
-            {
-                flowLayoutPanelScenes.Controls.Add(CreatePanelForScene(scene));
-            }
+                flowLayoutPanelScenes.Controls.Add(scene.Value.CreateScenePanel());
         }
 
         
