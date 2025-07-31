@@ -224,6 +224,7 @@ namespace Immersion
 
             // Globale Variable setzen
             ImmersionMain.currentScene = ImmersionMain.scenes[selectedPanel.GetId()];
+            SynchronizePictureFlowLayoutPanel();
 
             // Markierung aktualisieren
             foreach (ScenePanel panel in flowLayoutPanelScenes.Controls.OfType<ScenePanel>())
