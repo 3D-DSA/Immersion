@@ -91,7 +91,7 @@ namespace Immersion.Classes
 
             PictureBox imgToShow = new PictureBox();
             imgToShow.Image = Image.FromFile(text);
-            imgToShow.SizeMode = PictureBoxSizeMode.StretchImage;
+            imgToShow.SizeMode = PictureBoxSizeMode.Zoom;
             imgToShow.Dock = DockStyle.Fill;
             pictureForm.Controls.Add(imgToShow);
 
@@ -99,6 +99,11 @@ namespace Immersion.Classes
             Rectangle workingArea = screen.WorkingArea;
             pictureForm.Location = workingArea.Location;
             pictureForm.Size = workingArea.Size;
+            pictureForm.BackColor = Color.Black;
+
+            pictureForm.FormBorderStyle = FormBorderStyle.None;
+            pictureForm.ControlBox = false;
+            pictureForm.WindowState = FormWindowState.Maximized;
 
             pictureForm.Show();
             pictureBox.Image = Image.FromFile(text);

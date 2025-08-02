@@ -221,10 +221,11 @@
             // 
             // flowLayoutPanelImages
             // 
-            flowLayoutPanelImages.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanelImages.Location = new Point(6, 23);
+            flowLayoutPanelImages.AutoScroll = true;
+            flowLayoutPanelImages.Dock = DockStyle.Fill;
+            flowLayoutPanelImages.Location = new Point(3, 23);
             flowLayoutPanelImages.Name = "flowLayoutPanelImages";
-            flowLayoutPanelImages.Size = new Size(590, 364);
+            flowLayoutPanelImages.Size = new Size(596, 370);
             flowLayoutPanelImages.TabIndex = 2;
             // 
             // btnAddImage

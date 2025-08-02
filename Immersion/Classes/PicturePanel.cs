@@ -20,8 +20,8 @@ namespace Immersion.Classes
                 imgPath = Path.Combine(Application.StartupPath, "Images", "photo.png");
             else imgPath = imagePath;
 
-            this.Width = 75;
-            this.Height = 100;
+            this.Width = 150;
+            this.Height = 200;
             this.BorderStyle = BorderStyle.FixedSingle;
             this.BackColor = Color.Black;
 

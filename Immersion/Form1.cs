@@ -26,7 +26,7 @@ namespace Immersion
                 new ObservableCollection<Video>(), new ObservableCollection<Sound>());
 
             ImmersionMain.scenes.Add(1, ImmersionMain.currentScene);
-            SynchronizeSceneFlowLayoutPanel();
+            PopulateScenePanel();
 
             if (ImmersionMain.currentScene != null)
             {
@@ -204,7 +204,15 @@ namespace Immersion
 
         private void PopulateScenePanel()
         {
+            if (ImmersionMain.currentScene != null)
+            {
+                ImmersionMain.currentScene.PictureList.CollectionChanged -= PictureList_CollectionChanged;
+                ImmersionMain.currentScene = new Scene("",0,"",null,null,null);
+            }
             flowLayoutPanelScenes.Controls.Clear();
+
+            if(ImmersionMain.scenes.Count > 0)
+                ImmersionMain.currentScene = ImmersionMain.scenes.First().Value;
 
             foreach (var scene in ImmersionMain.scenes)
             {
@@ -215,6 +223,8 @@ namespace Immersion
 
                 flowLayoutPanelScenes.Controls.Add(scenePanel);
             }
+
+            SynchronizePictureFlowLayoutPanel();
         }
 
         private void ScenePanel_Selected(object? sender, EventArgs e)
@@ -257,19 +267,6 @@ namespace Immersion
             foreach (var pic in ImmersionMain.currentScene.PictureList)
             {
                 flowLayoutPanelImages.Controls.Add(CreatePanelForPicture(pic));
-            }
-        }
-
-        private void SynchronizeSceneFlowLayoutPanel()
-        {
-            flowLayoutPanelScenes.Controls.Clear();
-            foreach (var scene in ImmersionMain.scenes)
-            {
-                var scenePanel = scene.Value.CreateScenePanel();
-                scenePanel.SetActiveMarker(ImmersionMain.currentScene.GetId() == scenePanel.GetId());
-                scenePanel.Width = flowLayoutPanelScenes.ClientSize.Width - 10;
-                scenePanel.Selected += ScenePanel_Selected;
-                flowLayoutPanelScenes.Controls.Add(scenePanel);
             }
         }
     }

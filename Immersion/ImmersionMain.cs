@@ -24,7 +24,12 @@ namespace Immersion
 
         internal static void AddImagesToList(List<string> imagePathList)
         {
-            if (currentScene == null) InitializeCurrentScene();
+            if (currentScene == null)
+                currentScene = new Scene(
+                    "Neue Szene", scenes.Count +1, "", 
+                    new ObservableCollection<Picture>(),
+                    new ObservableCollection<Video>(),
+                    new ObservableCollection<Sound>());
 
             foreach (string imagePath in imagePathList)
             {
@@ -46,20 +51,8 @@ namespace Immersion
                 scenes[currentScene.GetId()] = currentScene;
             else
                 scenes.Add(currentScene.GetId(), currentScene);
+
             currentScene = scene;
-        }
-
-        internal static void InitializeCurrentScene(bool forceOverride = false)
-        {
-            if(currentScene != null && !forceOverride) return;
-            currentScene = new Scene(
-                "Neue Szene",
-                scenes.Count() + 1,
-                "",
-                new ObservableCollection<Picture>(),
-                new ObservableCollection<Video>(),
-                new ObservableCollection<Sound>());
-
         }
     }
 }
