@@ -223,7 +223,10 @@ namespace Immersion
             if (selectedPanel == null) return;
 
             // Globale Variable setzen
+            if(ImmersionMain.currentScene != null)
+                ImmersionMain.currentScene.PictureList.CollectionChanged -= PictureList_CollectionChanged;
             ImmersionMain.currentScene = ImmersionMain.scenes[selectedPanel.GetId()];
+            ImmersionMain.currentScene.PictureList.CollectionChanged += PictureList_CollectionChanged;
             SynchronizePictureFlowLayoutPanel();
 
             // Markierung aktualisieren
